@@ -1,0 +1,35 @@
+{
+    "name": "docpad-plugin-S3",
+    "version": "0.0.0",
+    "description": "DocPad plugin which adds the ability to output to Amazon S3.",
+    "homepage": "https://github.com/bobobo1618/docpad-plugin-s3",
+    "keywords": [
+        "docpad",
+        "docpad-plugin",
+        "amazon",
+        "s3"
+    ],
+    "author": "Lucas <bobobo1618@gmail.com>",
+    "maintainers": [
+        "Lucas <bobobo1618@gmail.com>"
+    ],
+    "contributors": [
+        "Lucas <bobobo1618@gmail.com>"
+    ],
+    "bugs": {
+        "url": "https://github.com/bobobo1618/docpad-plugin-s3/issues"
+    },
+    "repository" : {
+        "type": "git",
+        "url": "https://github.com/bobobo1618/docpad-plugin-s3.git"
+    },
+    "engines" : {
+        "node": ">=0.4.0",
+        "docpad": "6.x"
+    },
+    "dependencies": {
+        "knox": "0.3.x",
+        "mime": "1.2.x"
+    },
+    "main": "./docpad-S3.plugin.coffee"
+}
