@@ -1,6 +1,6 @@
 {
     "name": "docpad-plugin-s3",
-    "version": "0.0.0",
+    "version": "0.0.1",
     "description": "DocPad plugin which adds the ability to output to Amazon S3.",
     "homepage": "https://github.com/bobobo1618/docpad-plugin-s3",
     "keywords": [

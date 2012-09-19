@@ -1,5 +1,6 @@
 knox = require 'knox'
 mime = require 'mime'
+http = require 'http'
 
 module.exports = (BasePlugin) ->
     class docpadS3Plugin extends BasePlugin
@@ -14,6 +15,8 @@ module.exports = (BasePlugin) ->
 
             docpad = @docpad
             client = knox.createClient knoxConfig
+
+            http.globalAgent.maxSockets = 2
 
             docpad.getFiles(write:true).forEach (file)->
                 path = file.attributes.relativeOutPath
