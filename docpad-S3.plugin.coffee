@@ -18,7 +18,6 @@ module.exports = (BasePlugin) ->
             docpad.getFiles(write:true).forEach (file)->
                 path = file.attributes.relativeOutPath
                 data = file.get('contentRendered') || file.get('content') || file.getData()
-                console.log path, file.get('contentRendered')?, file.get('content')?, file.getData()?, file.get('content').length
                 length = data.length
                 type = mime.lookup path #file.get('contentType')
                 
@@ -26,6 +25,10 @@ module.exports = (BasePlugin) ->
                     "Content-Length": length,
                     "Content-Type": type
                 }
+
+                if file.get('headers')
+                    for header in file.get('headers')
+                        headers[header.name] = header.value
 
                 req = client.put path, headers
                 req.on 'response', (res)->
