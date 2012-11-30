@@ -26,7 +26,8 @@ module.exports = (BasePlugin) ->
                 
                 headers = {
                     "Content-Length": length,
-                    "Content-Type": type
+                    "Content-Type": type,
+                    "x-amz-acl": 'public-read'
                 }
 
                 if file.get('headers')
