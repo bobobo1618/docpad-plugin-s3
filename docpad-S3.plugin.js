@@ -29,46 +29,52 @@
           secret: process.env.DOCPAD_S3_SECRET,
           bucket: process.env.DOCPAD_S3_BUCKET
         };
-        docpad = this.docpad;
-        client = knox.createClient(knoxConfig);
-        http.globalAgent.maxSockets = 2;
-        return docpad.getFiles({
-          write: true
-        }).forEach(function(file) {
-          var data, header, headers, length, path, req, type, _i, _len, _ref;
-          path = file.attributes.relativeOutPath;
-          data = file.get('contentRendered') || file.get('content') || file.getData();
-          length = data.length;
-          type = mime.lookup(path);
-          headers = {
-            "Content-Length": length,
-            "Content-Type": type
-          };
-          if (file.get('headers')) {
-            _ref = file.get('headers');
-            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-              header = _ref[_i];
-              headers[header.name] = header.value;
+        if ((knoxConfig.key != null) && (knoxConfig.secret != null) && (knoxConfig.bucket != null)) {
+          docpad = this.docpad;
+          client = knox.createClient(knoxConfig);
+          http.globalAgent.maxSockets = 2;
+          return docpad.getFiles({
+            write: true
+          }).forEach(function(file) {
+            var data, header, headers, length, path, req, type, _i, _len, _ref;
+            path = file.attributes.relativeOutPath;
+            data = file.get('contentRendered') || file.get('content') || file.getData();
+            length = data.length;
+            type = mime.lookup(path);
+            headers = {
+              "Content-Length": length,
+              "Content-Type": type,
+              "x-amz-acl": 'public-read'
+            };
+            if (file.get('headers')) {
+              _ref = file.get('headers');
+              for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                header = _ref[_i];
+                headers[header.name] = header.value;
+              }
             }
-          }
-          req = client.put(path, headers);
-          req.on('response', function(res) {
-            var resdata;
-            if (200 === res.statusCode) {
-              console.log('Uploaded %s to S3.', path);
-            } else {
-              console.log('Derp on %s', path);
-            }
-            resdata = '';
-            res.on('data', function(chunk) {
-              return resdata = resdata + chunk;
+            req = client.put(path, headers);
+            req.on('response', function(res) {
+              var resdata;
+              if (200 === res.statusCode) {
+                console.log('Uploaded %s to S3.', path);
+              } else {
+                console.log('Derp on %s', path);
+              }
+              resdata = '';
+              res.on('data', function(chunk) {
+                return resdata = resdata + chunk;
+              });
+              return res.on('end', function() {
+                return console.log(resdata);
+              });
             });
-            return res.on('end', function() {
-              return console.log(resdata);
-            });
+            return req.end(data);
           });
-          return req.end(data);
-        });
+        } else {
+          console.log('Skipping S3. An environment variable is missing. Printing detected config:');
+          return console.dir(knoxConfig);
+        }
       };
 
       return docpadS3Plugin;
