@@ -4,7 +4,7 @@ http = require 'http'
 
 module.exports = (BasePlugin) ->
     class docpadS3Plugin extends BasePlugin
-        name: "Docpad-S3"
+        name: "s3"
 
         writeAfter: (collection)->
             knoxConfig = {

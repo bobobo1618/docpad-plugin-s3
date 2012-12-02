@@ -20,7 +20,7 @@
         return docpadS3Plugin.__super__.constructor.apply(this, arguments);
       }
 
-      docpadS3Plugin.prototype.name = "Docpad-S3";
+      docpadS3Plugin.prototype.name = "s3";
 
       docpadS3Plugin.prototype.writeAfter = function(collection) {
         var client, docpad, knoxConfig;

@@ -31,5 +31,5 @@
         "knox": "0.3.x",
         "mime": "1.2.x"
     },
-    "main": "./docpad-S3.plugin.js"
+    "main": "./S3.plugin.js"
 }
