@@ -1,3 +1,7 @@
+# Notice
+
+This project has been deprecated by my [Sunny plugin](https://github.com/bobobo1618/docpad-plugin-sunny). Go there. It's better in all ways.
+
 # Docpad S3
 
 So this is one of the only useful things I've published, yay! Actually distributing my projects is new to me.
